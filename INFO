@@ -55,6 +55,7 @@ PARAMETERS, default value in []:
 -d or --maxdepth, Max per-BAM depth coverage to avoid excessive memory usage [8000]
 -s or --samtools, File path to Samtools [/usr/bin/samtools]
 -t or --threads, number of cores to use [1]
+- n or --bamname, This is the file designation that the bam files must end with, the .bai files must match this convention as well default = "_aln.sorted.bam". "_aln.sorted.bam" is the default naming convention used in the COmai BWA bulk alignment and processing package.
    
    
 Part 2: mpileup-parser.py
