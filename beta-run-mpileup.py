@@ -107,7 +107,10 @@ def readFastaLen(filename):
 #########
 
 #Getting all ref sizes
-sizes = readFastaLen(opt.ref)
+try:
+   sizes = readFastaLen(opt.ref)
+except:
+   parser.error("Please check your command line paramters with -h or --help")
 
 #
 #for x in all:
