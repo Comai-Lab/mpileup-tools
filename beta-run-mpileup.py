@@ -49,6 +49,7 @@ parser.add_option("-Q", "--basequal", dest="basequal", default="20", help="(OPTI
 parser.add_option("-d", "--maxdepth", dest="maxdepth", default="8000", help="(OPTIONAL, default = 8000) Max per-BAM depth to avoid excessive memory usage")
 parser.add_option("--samtools", "-s", dest="pathSAM",  type = "str", default='/share/apps/samtools-github-1.18/samtools', help="File path to Samtools")
 parser.add_option("-t", "--threads", dest="threads", type = "int", default=1, help="Number of cores to use. (1)")
+parser.add_option("--bamname", "-n", dest="bamFileName",  type = "str", default='_aln.sorted.bam', help="This is the file designation that the bam files must end with, the .bai files must match this convention as well default = _aln.sorted.bam")
 
 (opt, args) = parser.parse_args()
 mapqual = opt.mapqual
@@ -170,7 +171,7 @@ except:
    parser.error("Please check your command line paramters with -h or --help")
 
 li = os.listdir(os.getcwd())
-ind = filter(lambda x: x.endswith("_aln.sorted.bam"), li)
+ind = filter(lambda x: x.endswith(opt.bamFileName), li)
 ind.sort()
 a = map(lambda x: ["Cov-"+'-'.join(x.split('_')[:-1]).replace('lib','').replace('Lib',''),'Call-'+'-'.join(x.split('_')[:-1]).replace('lib','').replace('Lib',''),'Qual-'+'-'.join(x.split('_')[:-1]).replace('lib','').replace('Lib','')], ind)
 b = [item for sublist in a for item in sublist]
