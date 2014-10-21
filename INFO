@@ -7,9 +7,9 @@ Please note that this is intended to be used in conjunction with our MAPS and bw
 For multicore/threading purposes, the second program reads the entire file into memory before running, so it is recommended not to run it on systems with limited memory. It typically requires > 1.5 times the size of the parsed mpileup file in RAM to run. For example, if the mpileup.txt file is 20 gbps, > 30 Gbps of RAM are necessary to run the program on the whole file at once. Depending on the number of samples and the coverage, mpileup files can be very large and the required RAM will not be available. In this case, it is recommended to break the mpileup file into smaller chunks to be processed separately, and leave them in chunks if the result parsed mpileups are to be subsequently used in the MAPS pipeline. Both programs use command line parameters to set options, a list of which can be found i) by using a simple -h flag after the program name while executing (./program.py -h), ii) here in the program descriptions, and iii) at the top of the programs themselves.
 
 Note: To see run parameters:
-./run-mpileup.py -h OR ./run-mpileup.py --help
+./beta-run-mpileup.py -h OR ./run-mpileup.py --help
 AND
-./mpileup-parser.py -h OR ./ mpileup-parser.py --help
+./beta-mpileup-parser.py -h OR ./ mpileup-parser.py --help
 
 Run example, for a folder of sorted.bams and a mpileup file resultfilename.txt
 
@@ -17,15 +17,15 @@ First place all sorted.bam files in a directory, the first program runs on all t
 
 Step 1:
 To run using the reference genome genome.fa, with mapping quality cutoff and base quality cutoff of 21, and max per-BAM depth of 4000:
-./run-mpileup.py --reference_file /path/to/reference/used/in/mapping/genome.fa --output_file resultfilename.txt --mapqual 21 --basequal 21 --maxdepth 4000
+./beta-run-mpileup.py --reference_file /path/to/reference/used/in/mapping/genome.fa --output_file resultfilename.txt --mapqual 21 --basequal 21 --maxdepth 4000
 OR
-./run-mpileup.py -r/path/to/reference/used/in/mapping/genome.fa -o resultfilename.txt -q 21 -Q 21 -d 4000
+./beta-run-mpileup.py -r/path/to/reference/used/in/mapping/genome.fa -o resultfilename.txt -q 21 -Q 21 -d 4000
 
 Step 2:
 Continue to parse the file from above, with 2 threads. 
-./mpileup-parser.py --thread 2 --mpileup_file resultfilename.txt 
+./beta-mpileup-parser.py --thread 2 --mpileup_file resultfilename.txt 
 OR
-./mpileup-parser.py -t 2 -f resultfilename.txt 
+./beta-mpileup-parser.py -t 2 -f resultfilename.txt 
 
 Note that a result parsed mpileup file with the name ‚"parsed_" resultfilename.txt will be generated.
 
@@ -54,6 +54,7 @@ PARAMETERS, default value in []:
 -Q or --basequal, Minimum base quality for a base to be considered [20]
 -d or --maxdepth, Max per-BAM depth coverage to avoid excessive memory usage [8000]
 -s or --samtools, File path to Samtools [/usr/bin/samtools]
+-t or --threads, number of cores to use [1]
    
    
 Part 2: mpileup-parser.py
