@@ -123,7 +123,7 @@ allvals = sum(sizes.values())
 piecelen = allvals/opt.threads
 
 #breaking into #of threads chinks
-varlist = [[]]
+varlist = []
 temp = 0
 for c in clist:
    tn = sizes[c]
