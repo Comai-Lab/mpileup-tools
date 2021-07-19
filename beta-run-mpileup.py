@@ -47,7 +47,7 @@ parser.add_option("-o", "--output_file", dest="dest", help="Output file name.")
 parser.add_option("-q", "--mapqual", dest="mapqual", default="20", help="(OPTIONAL, default = 20) Minimum mapping quality for an alignment to be used")
 parser.add_option("-Q", "--basequal", dest="basequal", default="20", help="(OPTIONAL, default = 20) Minimum base quality for a base to be considered")
 parser.add_option("-d", "--maxdepth", dest="maxdepth", default="8000", help="(OPTIONAL, default = 8000) Max per-BAM depth to avoid excessive memory usage")
-parser.add_option("--samtools", "-s", dest="pathSAM",  type = "str", default='/share/apps/samtools-github-1.18/samtools', help="File path to Samtools")
+parser.add_option("--samtools", "-s", dest="pathSAM",  type = "str", default='samtools', help="File path to Samtools")
 parser.add_option("-t", "--threads", dest="threads", type = "int", default=1, help="Number of cores to use. (1)")
 parser.add_option("--bamname", "-n", dest="bamFileName",  type = "str", default='_aln.sorted.bam', help="This is the file designation that the bam files must end with, the .bai files must match this convention as well default = _aln.sorted.bam")
 
@@ -132,7 +132,7 @@ for c in clist:
       varlist[-1].append(c)
       temp+=tn      
    #If bigger than cutoff, close this block and start nw
-   elif temp + tn < piecelen*1.1:
+   elif temp + tn < piecelen*1.1 and varlist != []:
       varlist[-1].append(c)
       temp+=tn
    #else, still smaller, add to existing block
