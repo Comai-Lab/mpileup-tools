@@ -82,7 +82,8 @@ class MyThread (multiprocessing.Process):
 
 
 def readFastaLen(filename):
-   f = open(filename)       
+   f = open(filename)      
+   norder = [] 
    #read in a fasta
    name = ''
    seq = 0
@@ -97,10 +98,11 @@ def readFastaLen(filename):
             seqs[name] = seq
          seq = 0
          name = l.replace('\n','').replace('>','')
+         norder.append(name)
       else:
          seq+=len(l.replace('\n',''))
    f.close()
-   return seqs
+   return seqs, norder
 
 ###############
 #Partition ref seqs
@@ -108,7 +110,7 @@ def readFastaLen(filename):
 
 #Getting all ref sizes
 try:
-   sizes = readFastaLen(opt.ref)
+   sizes, clist = readFastaLen(opt.ref)
 except:
    parser.error("Please check your command line paramters with -h or --help")
 
@@ -117,8 +119,8 @@ except:
 #   sizes[x] = len(all[x])
 
 #figuring out size cutoff
-clist = sizes.keys()
-clist.sort()
+# clist = sizes.keys()
+# clist.sort()
 allvals = sum(sizes.values())
 piecelen = allvals/opt.threads
 
